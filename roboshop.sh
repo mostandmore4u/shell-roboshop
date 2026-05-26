@@ -27,6 +27,7 @@ do
         IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID \
          --query 'Reservations[*].Instances[*].PrivateIpAddress' \
          --output text
+        )
         R53_RECORD=$instance.$DOMAIN_NAME
 
     fi
