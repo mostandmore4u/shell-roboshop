@@ -2,7 +2,7 @@
 
 AMI_ID="ami-0220d79f3f480ecf5"
 ZONE_ID="Z03529883O6BVV0TAO031" 
-DOMAIN_NAME="sbbudevops.online"
+DOMAIN_NAME="subbudevops.online"
 
 for instance in $@
 do
