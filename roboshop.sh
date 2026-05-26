@@ -51,7 +51,7 @@ do
                           "ResourceRecords": 
                         [
                             {
-                                "Value": "'$IP'"
+                              "Value": "$IP"
                             }
                         ]
                     }
