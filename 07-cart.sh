@@ -45,7 +45,7 @@ rm -rf /app
 VALIDATE $? "Removing existing code"
 
 rm -rf /tmp/cart.zip
-VALIDATE $? "Removed uer zip"
+VALIDATE $? "Removed cart.zip"
 
 mkdir -p /app  &>>$LOGS_FILE
 VALIDATE $? "Creating app directory"
