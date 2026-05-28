@@ -67,10 +67,10 @@ VALIDATE $? "Added Mongo repo"
 dnf install mongodb-mongosh -y &>>$LOGS_FILE
 VALIDATE $? "Installed MongoDB client"
 
-INDEX=$(mongosh --host mangodb.subbudevops.online --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
+INDEX=$(mongosh --host mongodb.subbudevops.online --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
 
 if [ "$INDEX" -lt 0 ]; then
-    mongosh --host mangodb.subbudevops.online </app/db/master-data.js &>>$LOGS_FILE
+    mongosh --host mongodb.subbudevops.online </app/db/master-data.js &>>$LOGS_FILE
     VALIDATE $? "Load Products"
 else
     echo -e "Products already loaded ... $Y SKIPPING $N"
