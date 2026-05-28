@@ -14,7 +14,7 @@ Y="\e[33m"
 N="\e[0m"
 TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
 
-if [ $USERID -ne 0 ]; then
+if [ "$USERID" -ne 0 ]; then
     echo -e "$TIMESTAMP [ERROR] $R Please run this script with root access $N" | tee -a $LOGS_FILE
     exit 1
 fi
@@ -69,7 +69,7 @@ VALIDATE $? "Installed MongoDB client"
 
 INDEX=$(mongosh --host mongodb.subbudevops.online --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
 
-if [ $INDEX -lt 0 ]; then
+if [ "$INDEX" -lt 0 ]; then
     mongosh --host mongodb.subbudevops.online </app/db/master-data.js &>>$LOGS_FILE
     VALIDATE $? "Load Products"
 else

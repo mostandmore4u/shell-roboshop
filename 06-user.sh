@@ -63,4 +63,4 @@ VALIDATE $? "Created systemctl service"
 
 systemctl enable catalogue &>>$LOGS_FILE
 systemctl restart catalogue &>>$LOGS_FILE
-VALIDATE $? "Restarting catalogue"
+VALIDATE $? "Restarting user"
