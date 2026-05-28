@@ -5,6 +5,7 @@ User=roboshop
 // highlight-start
 Environment=REDIS_HOST=redis.subbudevops.online
 Environment=CATALOGUE_HOST=catalogue.subbudevops.online
+Environment=MONGO_URL="mongodb://mongodb.subbudevops.online
 Environment=CATALOGUE_PORT=8080
 // highlight-end
 ExecStart=/bin/node /app/server.js
