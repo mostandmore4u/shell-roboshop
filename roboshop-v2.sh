@@ -31,7 +31,7 @@ get_instance_id(){
 
 for instance in $@
 do
-    get_instance_id $instance
+    INSTANCE_ID=$(get_instance_id $instance)
     if [ $ACTION == "create" ]; then
       if [ "$INSTANCE_ID" == "None" ]; then
         echo "Launching Instance: roboshop-$instance"
