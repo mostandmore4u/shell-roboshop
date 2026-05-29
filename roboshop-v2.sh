@@ -72,8 +72,8 @@ do
         
       aws route53 change-resource-record-sets \
       --hosted-zone-id $ZONE_ID \
-      --change-batch \ '
-            {
+      --change-batch '
+          {
                 "Comment": "Update A record to new IP",
                 "Changes": [
                     {
@@ -91,7 +91,7 @@ do
                     }
                 ]
             }
-        '
+      '
       echo "update R53 record for: $instance"
     else
         if [ $INSTANCE_ID== "None" ]; then
