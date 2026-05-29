@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#export PATH=$PATH:/usr/local/bin
-
 AMI_ID="ami-0220d79f3f480ecf5"
 ZONE_ID="Z03529883O6BVV0TAO031"
 DOMAIN_NAME="subbudevops.online"
