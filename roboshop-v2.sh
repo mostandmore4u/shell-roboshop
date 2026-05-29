@@ -61,14 +61,14 @@ do
           )
           R53_RECORD=$DOMAIN_NAME
       else
-          IP=$(/usr/local/bin/aws ec2 describe-instances --instance-ids $INSTANCE_ID \
+          IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID \
           --query 'Reservations[*].Instances[*].PrivateIpAddress' \
           --output text
           )
           R53_RECORD=$instance.$DOMAIN_NAME
       fi
         
-      /usr/local/bin/aws route53 change-resource-record-sets \
+      aws route53 change-resource-record-sets \
       --hosted-zone-id $ZONE_ID \
       --change-batch \
       '
@@ -99,7 +99,7 @@ do
         if [ $INSTANCE_ID== "None" ]; then
             echo "$instance Already destroyed nothing to do..."
         else
-          /usr/local/bin/aws ec2 terminate-instances --instance-ids $INSTANCE_ID
+          aws ec2 terminate-instances --instance-ids $INSTANCE_ID
           echo "Terminating Instance: $instance"
         fi
     fi
