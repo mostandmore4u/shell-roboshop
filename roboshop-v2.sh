@@ -39,7 +39,7 @@ do
     if [ $ACTION == "create" ]; then
       if [ "$INSTANCE_ID" == "None" ]; then
         echo "Launching Instance: roboshop-$instance"
-        INSTANCE_ID=$(aws ec2 run-instances \
+        INSTANCE_ID=$(/usr/local/bin/aws ec2 run-instances \
         --image-id $AMI_ID \
         --instance-type t3.micro \
         --security-groups "roboshop-common" "roboshop-$instance" \
@@ -55,20 +55,20 @@ do
 
       # update R53 record
       if [ "$instance" == "frontend" ]; then
-            IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID \
+            IP=$(/usr/local/bin/aws ec2 describe-instances --instance-ids $INSTANCE_ID \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --output text
           )
           R53_RECORD=$DOMAIN_NAME
       else
-          IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID \
+          IP=$(/usr/local/bin/aws ec2 describe-instances --instance-ids $INSTANCE_ID \
           --query 'Reservations[*].Instances[*].PrivateIpAddress' \
           --output text
           )
           R53_RECORD=$instance.$DOMAIN_NAME
       fi
         
-      aws route53 change-resource-record-sets \
+      /usr/local/bin/aws route53 change-resource-record-sets \
       --hosted-zone-id $ZONE_ID \
       --change-batch \
       '
@@ -99,7 +99,7 @@ do
         if [ $INSTANCE_ID== "None" ]; then
             echo "$instance Already destroyed nothing to do..."
         else
-          aws ec2 terminate-instances --instance-ids $INSTANCE_ID
+          /usr/local/bin/aws ec2 terminate-instances --instance-ids $INSTANCE_ID
           echo "Terminating Instance: $instance"
         fi
     fi

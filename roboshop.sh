@@ -9,7 +9,7 @@ do
     # FIX 1: Removed the trailing unmatched double quote
     echo "Launching instance: $instance"
     
-    INSTANCE_ID=$(/usr/local/bin/aws ec2 run-instances \
+    INSTANCE_ID=$(aws ec2 run-instances \
     --image-id $AMI_ID \
     --instance-type t3.micro \
     --security-groups "roboshop-common" "roboshop-$instance" \
@@ -22,13 +22,13 @@ do
 
     # Best Practice: Wrap variables in quotes inside conditionals
     if [ "$instance" == "frontend" ]; then
-        IP=$(/usr/local/bin/aws ec2 describe-instances --instance-ids $INSTANCE_ID \
+        IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID \
          --query 'Reservations[*].Instances[*].PublicIpAddress' \
          --output text
         )
         R53_RECORD=$DOMAIN_NAME
     else
-        IP=$(/usr/local/bin/aws ec2 describe-instances --instance-ids $INSTANCE_ID \
+        IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID \
          --query 'Reservations[*].Instances[*].PrivateIpAddress' \
          --output text
         )
@@ -36,7 +36,7 @@ do
     fi
 
     #### Updating R53 Record ####
-    /usr/local/bin/aws route53 change-resource-record-sets \
+    aws route53 change-resource-record-sets \
     --hosted-zone-id $ZONE_ID \
     --change-batch \
     '
