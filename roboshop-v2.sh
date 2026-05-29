@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#export PATH=$PATH:/usr/local/bin
+
 AMI_ID="ami-0220d79f3f480ecf5"
 ZONE_ID="Z03529883O6BVV0TAO031"
 DOMAIN_NAME="subbudevops.online"
@@ -43,7 +45,9 @@ do
         --query 'Instances[0].InstanceId' \
         --output text 
         )
-        echo "Instance ID: $INSTANCE_ID"
+        echo "Launched Instance: $INSTANCE_ID"
+        aws ec2 wait instance-running --instance-ids $INSTANCE_ID
+        echo "Instance is running: $INSTANCE_ID"
 
       else
         echo "roboshop-$instance already running: $INSTANCE_ID"
@@ -67,7 +71,7 @@ do
       aws route53 change-resource-record-sets \
       --hosted-zone-id $ZONE_ID \
       --change-batch \
-      '
+        '
           {
               "Comment": "Update A record to new IP",
               "Changes": 
@@ -89,7 +93,7 @@ do
                   }
               ]
           }
-      '
+        '
       echo "update R53 record for: $instance"
     else
         if [ $INSTANCE_ID== "None" ]; then
