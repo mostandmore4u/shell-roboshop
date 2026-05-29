@@ -100,3 +100,17 @@ do
         fi
     fi
 done
+
+# ================================================================
+# ASSIGNMENT 2 — roboshop-v3.sh (Handle stopped instances)
+# ================================================================
+
+# roboshop-v2.sh only checks for "running" instances.
+# A stopped instance is treated as non-existent — it gets re-created
+# instead of re-started, and on delete it is silently skipped.
+
+# Improve it so that:
+
+#   - If create and instance is stopped, start it instead of launching new
+#   - If delete and instance is stopped, terminate it and delete R53 record
+#   - If delete and instance is running, terminate it and delete R53 record
